@@ -1,0 +1,189 @@
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 14px 9px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  width: 50px; 
+}
+
+.company-name {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px; /* Adjust width as needed */
+}
+
+.dropdown-search {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.search-bar input:focus + .dropdown-search {
+  display: block;
+}
+
+.menu-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f4f4f4;
+  flex-grow: 1; /* Allow content to grow within the container */
+}
+
+.menu-content::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.menu-content::-webkit-scrollbar-button {
+  background: #ccc;
+}
+
+.menu-content::-webkit-scrollbar-corner {
+  background: #ccc;
+}
+
+.popup-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%; 
+  width: 500px; 
+  background: white;
+  padding: 20px; 
+  border: 1px solid #ccc;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 10px;
+}
+
+.popup-card .close-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-banner {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+/* Media Query for 768px */
+@media (max-width: 768px) {
+  .menu-content {
+    padding: 5px;
+  }
+
+  .popup-card {
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+  }
+
+  .company-name {
+    font-size: 30px; /* Adjust font size for smaller screens */
+  }
+
+  .search-bar input {
+    width: 150px; /* Adjust width for smaller screens */
+  }
+}
+
+/* Media Query for 450px */
+@media (max-width: 450px) {
+  .menu-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4;
+    flex-grow: 1; 
+  }
+
+  .company-name {
+    font-size: 20px; /* Adjust font size for even smaller screens */
+  }
+
+  .search-bar input {
+    width: 120px; /* Adjust width for even smaller screens */
+  }
+
+  .submenu-button {
+    font-size: 0.6rem; /* Further decrease font size for even smaller screens */
+    padding: 6px 10px; /* Further decrease padding for even smaller screens */
+  }
+}
+
+@media (max-width: 500px) {
+
+
+  .search-bar {
+    position: relative;
+  }
+
+  .search-icon {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  .dropdown-search {
+    display: none;
+  }
+
+  .search-bar input:focus + .dropdown-search {
+    display: block;
+  }
+}
