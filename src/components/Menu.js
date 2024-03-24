@@ -10,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import './css/menu.css';
 import Logo from './images/logo.png';
+import Banner from './images/foodyes.png';
 
 const Menu = () => {
   const [selectedSubmenu, setSelectedSubmenu] = useState('Starter');
@@ -25,14 +26,14 @@ const Menu = () => {
   };
 
   const handleSearchButtonClick = () => {
-    setIsSearchDropdownVisible(true); // Open the dropdown search bar
-    setIsCompanyNameVisible(false); // Hide the company name
+    setIsSearchDropdownVisible(true);
+    setIsCompanyNameVisible(false); 
   };
 
   const handleClickOutsideSearch = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setIsSearchDropdownVisible(false); // Close the search bar if clicked outside
-      setIsCompanyNameVisible(true); // Show the company name
+      setIsSearchDropdownVisible(false); 
+      setIsCompanyNameVisible(true);
     }
   };
 
@@ -124,19 +125,19 @@ const Menu = () => {
                     cursor: 'pointer',
                     border: 'none',
                     outline: 'none',
-                    transition: 'background-color 0.3s, color 0.3s', // Add transition for smooth hover effect
+                    transition: 'background-color 0.3s, color 0.3s',
                   }}
                   variant="contained"
                   color="primary"
                   onClick={handleSearchButtonClick}
                   startIcon={<SearchIcon />}
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#fff'; // Change background color on hover
-                    e.target.style.color = '#000000'; // Change text color on hover
+                    e.target.style.backgroundColor = '#fff';
+                    e.target.style.color = '#000000'; 
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#000000'; // Revert background color on mouse leave
-                    e.target.style.color = '#fff'; // Revert text color on mouse leave
+                    e.target.style.backgroundColor = '#000000';
+                    e.target.style.color = '#fff';
                   }}
                 >
                 </Button>
@@ -183,7 +184,8 @@ const Menu = () => {
         onBeverageClick={() => handleSubmenuClick('Beverage')}
         onDessertClick={() => handleSubmenuClick('Dessert')}
       />
-      <div className="menu-banner">{/* Banner content goes here */}</div>
+
+      <img className="menu-banner"src={Banner} />
       <div className="menu-content max-w-full">
         {filteredFoodItems(getSelectedData(selectedSubmenu)).map(
           (food, index) => (

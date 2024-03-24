@@ -103,12 +103,11 @@
 }
 
 .menu-banner {
-  background-color: #f0f0f0;
-  padding: 20px;
   text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
+  object-fit: cover;
+  width: 100%; /* Adjust width to fill the container */
+  height: 300px;/* Allow the height to adjust proportionally */
+  padding: 10px 0px;
 }
 
 
