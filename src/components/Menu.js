@@ -20,6 +20,7 @@ const Menu = () => {
   const [isCompanyNameVisible, setIsCompanyNameVisible] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width:560px)'); // Change the max-width to 560px
   const searchRef = useRef(null);
+  const longPressTimeout = useRef(null);
 
   const handleClearSearch = () => {
     setSearchTerm('');
@@ -43,8 +44,14 @@ const Menu = () => {
     );
   };
 
-  const handleFoodItemClick = (food) => {
-    setPopupCardData(food);
+  const handleFoodItemLongPress = (food) => {
+    longPressTimeout.current = setTimeout(() => {
+      setPopupCardData(food);
+    }, 500); // Set the long press duration (milliseconds)
+  };
+
+  const handleFoodItemRelease = () => {
+    clearTimeout(longPressTimeout.current);
   };
 
   const handleClosePopup = () => {
@@ -185,21 +192,26 @@ const Menu = () => {
         onDessertClick={() => handleSubmenuClick('Dessert')}
       />
 
-      <img className="menu-banner"src={Banner} />
+      <img className="menu-banner" src={Banner} />
       <div className="menu-content max-w-full">
         {filteredFoodItems(getSelectedData(selectedSubmenu)).map(
           (food, index) => (
             <div
               key={index}
               className="food-item-container"
-              onClick={() => handleFoodItemClick(food)}
+              onMouseDown={() => handleFoodItemLongPress(food)}
+              onMouseUp={handleFoodItemRelease}
+              onMouseLeave={handleFoodItemRelease}
             >
-              <FoodItem image={food.image} name={food.name} price={food.price} />
+              {popupCardData === food ? (
+                <PopupCard data={popupCardData} onClose={handleClosePopup} />
+              ) : (
+                <FoodItem image={food.image} />
+              )}
             </div>
           )
         )}
       </div>
-      {popupCardData && <PopupCard data={popupCardData} onClose={handleClosePopup} />}
     </div>
   );
 };
@@ -211,12 +223,15 @@ const PopupCard = ({ data, onClose }) => {
       <img
         src={data.image}
         alt={data.name}
-        style={{ width: '100%', height: 'auto', fit: 'cover', padding: '10px' }}
+        style={{ position: 'relative' }}
       />
-      <h2>{data.name}</h2>
-      <p>Price: {data.price}</p>
+      <div className="popup-content">
+        <h2>{data.name}</h2>
+        <p>Price: {data.price}</p>
+      </div>
     </div>
   );
 };
 
 export default Menu;
+
