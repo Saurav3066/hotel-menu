@@ -159,7 +159,7 @@
   .popup-card {
     padding: 20px;
     height: 500px;
-    top: 65%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
