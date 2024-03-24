@@ -44,13 +44,13 @@ const Menu = () => {
     );
   };
 
-  const handleFoodItemLongPress = (food) => {
+  const handleFoodItemTouchStart = (food) => {
     longPressTimeout.current = setTimeout(() => {
       setPopupCardData(food);
     }, 500); // Set the long press duration (milliseconds)
   };
 
-  const handleFoodItemRelease = () => {
+  const handleFoodItemTouchEnd = () => {
     clearTimeout(longPressTimeout.current);
   };
 
@@ -199,9 +199,9 @@ const Menu = () => {
             <div
               key={index}
               className="food-item-container"
-              onMouseDown={() => handleFoodItemLongPress(food)}
-              onMouseUp={handleFoodItemRelease}
-              onMouseLeave={handleFoodItemRelease}
+              onTouchStart={() => handleFoodItemTouchStart(food)}
+              onTouchEnd={handleFoodItemTouchEnd}
+              onTouchCancel={handleFoodItemTouchEnd}
             >
               {popupCardData === food ? (
                 <PopupCard data={popupCardData} onClose={handleClosePopup} />
@@ -234,4 +234,3 @@ const PopupCard = ({ data, onClose }) => {
 };
 
 export default Menu;
-

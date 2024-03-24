@@ -5,7 +5,7 @@ import './css/foodItem.css';
 const FoodItem = ({ image, name, price, onLongPress }) => {
   return (
     <div className="food-item-container" onContextMenu={e => {
-        e.preventDefault(); // Prevent default context menu (right-click)
+        e.preventDefault(); 
         onLongPress();
       }}>
       <img src={image} alt={name} className="food-item-image" />
