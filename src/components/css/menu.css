@@ -105,8 +105,8 @@
 .menu-banner {
   text-align: center;
   object-fit: cover;
-  width: 100%; /* Adjust width to fill the container */
-  height: 300px;/* Allow the height to adjust proportionally */
+  max-width: 100%; /* Adjust width to fill the container */
+  height: auto;/* Allow the height to adjust proportionally */
   padding: 0px 0px 10px 0px;
 }
 
