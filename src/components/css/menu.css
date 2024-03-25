@@ -134,7 +134,7 @@
 /* Media Query for 450px */
 @media (max-width: 450px) {
   .menu-content {
-    /* padding-top: 10px; */
+    padding-top: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
