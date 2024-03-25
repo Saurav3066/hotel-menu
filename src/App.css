@@ -32,9 +32,9 @@ body {
   }
 }
 
-@media (max-width: 450px) {
+/* @media (max-width: 450px) {
   #root {
     padding: 5px;
     margin: 5px;
   }
-}
+} */
