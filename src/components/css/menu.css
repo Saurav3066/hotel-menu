@@ -58,7 +58,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #888 #f4f4f4;
-  flex-grow: 1; /* Allow content to grow within the container */
+  flex-grow: 1; 
 }
 
 .menu-content::-webkit-scrollbar-track {
@@ -92,6 +92,11 @@
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 100;
   border-radius: 10px;
+}
+
+.card-image-container{
+  background-color: #888;
+  height:auto;
 }
 
 .popup-card .close-popup {
@@ -129,15 +134,16 @@
 /* Media Query for 450px */
 @media (max-width: 450px) {
   .menu-content {
+    padding-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #888 #f4f4f4;
     flex-grow: 1;
-    align-content: space-around;
+    align-content: center;
+    align-items: center;
   }
 
   .company-name {
@@ -155,6 +161,7 @@
 }
 
 @media (max-width: 500px) {
+  
 
   .popup-card {
     padding: 20px;

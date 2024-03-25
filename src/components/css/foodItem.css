@@ -1,7 +1,7 @@
 .food-item-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
   
   .food-item-image {
@@ -47,7 +47,7 @@
   @media screen and (max-width: 500px) {
   
     .food-item-image {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 100px;
     }
   }

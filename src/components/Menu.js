@@ -222,14 +222,17 @@ const PopupCard = ({ data, onClose }) => {
   return (
     <div className="popup-card">
       {/* <button className="close-popup" onClick={onClose}>X</button> */}
+      <div className='card-image-container'>
       <img
         src={data.image}
         alt={data.name}
-        style={{ position: 'relative' }}
+        style={{ width:'auto', height:'auto', objectFit:'cover' }}
       />
+      </div>
       <div className="popup-content">
         <h2>{data.name}</h2>
         <p>Price: {data.price}</p>
+        <p> {data.description}</p>
       </div>
     </div>
   );
