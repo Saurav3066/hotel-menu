@@ -44,14 +44,15 @@ const Menu = () => {
     );
   };
 
-  const handleFoodItemTouchStart = (food) => {
+  const handleFoodItemPress = (food) => {
     longPressTimeout.current = setTimeout(() => {
       setPopupCardData(food);
     }, 500); // Set the long press duration (milliseconds)
   };
 
-  const handleFoodItemTouchEnd = () => {
+  const handleFoodItemRelease = () => {
     clearTimeout(longPressTimeout.current);
+    setPopupCardData(null);
   };
 
   const handleClosePopup = () => {
@@ -120,35 +121,34 @@ const Menu = () => {
                 )}
               </div>
             ) : (
-                <Button
-                  className="search-button"
-                  style={{
-                    backgroundColor: '#000000',
-                    color: '#fff',
-                    borderRadius: '5px',
-                    padding: '8px 0px 8px 6px',
-                    fontSize: '30px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    border: 'none',
-                    outline: 'none',
-                    transition: 'background-color 0.3s, color 0.3s',
-                  }}
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSearchButtonClick}
-                  startIcon={<SearchIcon />}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#fff';
-                    e.target.style.color = '#000000'; 
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#000000';
-                    e.target.style.color = '#fff';
-                  }}
-                >
-                </Button>
-            
+              <Button
+                className="search-button"
+                style={{
+                  backgroundColor: '#000000',
+                  color: '#fff',
+                  borderRadius: '5px',
+                  padding: '8px 0px 8px 6px',
+                  fontSize: '30px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  border: 'none',
+                  outline: 'none',
+                  transition: 'background-color 0.3s, color 0.3s',
+                }}
+                variant="contained"
+                color="primary"
+                onClick={handleSearchButtonClick}
+                startIcon={<SearchIcon />}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#fff';
+                  e.target.style.color = '#000000'; 
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#000000';
+                  e.target.style.color = '#fff';
+                }}
+              >
+              </Button>
             )}
           </>
         ) : (
@@ -192,22 +192,24 @@ const Menu = () => {
         onDessertClick={() => handleSubmenuClick('Dessert')}
       />
 
-      <img className="menu-banner" src={Banner} />
+      <img className="menu-banner" src={Banner} alt='' />
       <div className="menu-content max-w-full">
         {filteredFoodItems(getSelectedData(selectedSubmenu)).map(
           (food, index) => (
             <div
               key={index}
               className="food-item-container"
-              onTouchStart={() => handleFoodItemTouchStart(food)}
-              onTouchEnd={handleFoodItemTouchEnd}
-              onTouchCancel={handleFoodItemTouchEnd}
+              onClick={() => handleFoodItemPress(food)}
+              onMouseDown={() => handleFoodItemPress(food)}
+              onMouseUp={handleFoodItemRelease}
+              onTouchStart={() => handleFoodItemPress(food)}
+              onTouchEnd={handleFoodItemRelease}
+              onTouchCancel={handleFoodItemRelease}
             >
-              {popupCardData === food ? (
+              {popupCardData === food && (
                 <PopupCard data={popupCardData} onClose={handleClosePopup} />
-              ) : (
-                <FoodItem image={food.image} />
               )}
+              <FoodItem image={food.image} />
             </div>
           )
         )}
@@ -219,7 +221,7 @@ const Menu = () => {
 const PopupCard = ({ data, onClose }) => {
   return (
     <div className="popup-card">
-      <button className="close-popup" onClick={onClose}>X</button>
+      {/* <button className="close-popup" onClick={onClose}>X</button> */}
       <img
         src={data.image}
         alt={data.name}
@@ -234,3 +236,4 @@ const PopupCard = ({ data, onClose }) => {
 };
 
 export default Menu;
+
