@@ -18,7 +18,7 @@ const Menu = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchDropdownVisible, setIsSearchDropdownVisible] = useState(false);
   const [isCompanyNameVisible, setIsCompanyNameVisible] = useState(true);
-  const isSmallScreen = useMediaQuery('(max-width:560px)'); // Change the max-width to 560px
+  const isSmallScreen = useMediaQuery('(max-width:768px)'); // Change the max-width to 768px
   const searchRef = useRef(null);
   const longPressTimeout = useRef(null);
 
@@ -28,12 +28,12 @@ const Menu = () => {
 
   const handleSearchButtonClick = () => {
     setIsSearchDropdownVisible(true);
-    setIsCompanyNameVisible(false); 
+    setIsCompanyNameVisible(false);
   };
 
   const handleClickOutsideSearch = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setIsSearchDropdownVisible(false); 
+      setIsSearchDropdownVisible(false);
       setIsCompanyNameVisible(true);
     }
   };
@@ -45,9 +45,15 @@ const Menu = () => {
   };
 
   const handleFoodItemPress = (food) => {
-    longPressTimeout.current = setTimeout(() => {
+    if (isSmallScreen) {
+      // For small screens, handle long press touch
+      longPressTimeout.current = setTimeout(() => {
+        setPopupCardData(food);
+      }, 500); // Set the long press duration (milliseconds)
+    } else {
+      // For large screens, handle long press mouse click
       setPopupCardData(food);
-    }, 500); // Set the long press duration (milliseconds)
+    }
   };
 
   const handleFoodItemRelease = () => {
@@ -141,7 +147,7 @@ const Menu = () => {
                 startIcon={<SearchIcon />}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#fff';
-                  e.target.style.color = '#000000'; 
+                  e.target.style.color = '#000000';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = '#000000';
@@ -209,7 +215,8 @@ const Menu = () => {
               {popupCardData === food && (
                 <PopupCard data={popupCardData} onClose={handleClosePopup} />
               )}
-              <FoodItem image={food.image} />
+              <
+                FoodItem image={food.image} />
             </div>
           )
         )}
@@ -223,11 +230,11 @@ const PopupCard = ({ data, onClose }) => {
     <div className="popup-card">
       {/* <button className="close-popup" onClick={onClose}>X</button> */}
       <div className='card-image-container'>
-      <img
-        src={data.image}
-        alt={data.name}
-        style={{ width:'auto', height:'auto', objectFit:'cover' }}
-      />
+        <img
+          src={data.image}
+          alt={data.name}
+          style={{ width: 'auto', height: 'auto', objectFit: 'cover' }}
+        />
       </div>
       <div className="popup-content">
         <h2>{data.name}</h2>
@@ -239,4 +246,3 @@ const PopupCard = ({ data, onClose }) => {
 };
 
 export default Menu;
-
