@@ -19,6 +19,7 @@ const Menu = () => {
   const [isSearchDropdownVisible, setIsSearchDropdownVisible] = useState(false);
   const [isCompanyNameVisible, setIsCompanyNameVisible] = useState(true);
   const isSmallScreen = useMediaQuery('(max-width:768px)'); // Change the max-width to 768px
+  const isLargeScreen = useMediaQuery('(min-width:769px)'); // Check if the screen width is larger than 768px
   const searchRef = useRef(null);
   const longPressTimeout = useRef(null);
 
@@ -28,35 +29,56 @@ const Menu = () => {
 
   const handleSearchButtonClick = () => {
     setIsSearchDropdownVisible(true);
-    setIsCompanyNameVisible(false);
+    setIsCompanyNameVisible(false); 
   };
 
   const handleClickOutsideSearch = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setIsSearchDropdownVisible(false);
+      setIsSearchDropdownVisible(false); 
       setIsCompanyNameVisible(true);
     }
   };
 
   const filteredFoodItems = (data) => {
-    return data.filter((food) =>
-      food.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    return data.map((food, index) => (
+      <div
+        key={index}
+        className="food-item-container"
+        onClick={() => handleFoodItemClick(food)}
+        onTouchStart={() => handleTouchStart(food)}
+        onTouchEnd={() => handleTouchEnd(food)}
+        onTouchCancel={() => handleTouchCancel(food)}
+      >
+        {popupCardData === food && (
+          <PopupCard data={popupCardData} onClose={handleClosePopup} isLargeScreen={isLargeScreen} />
+        )}
+        <FoodItem image={food.image} />
+      </div>
+    ));
   };
 
-  const handleFoodItemPress = (food) => {
-    if (isSmallScreen) {
-      // For small screens, handle long press touch
+  const handleFoodItemClick = (food) => {
+    if (!isSmallScreen) {
       longPressTimeout.current = setTimeout(() => {
         setPopupCardData(food);
       }, 500); // Set the long press duration (milliseconds)
-    } else {
-      // For large screens, handle long press mouse click
-      setPopupCardData(food);
     }
   };
 
-  const handleFoodItemRelease = () => {
+  const handleTouchStart = (food) => {
+    if (isSmallScreen) {
+      longPressTimeout.current = setTimeout(() => {
+        setPopupCardData(food);
+      }, 500); // Set the long press duration (milliseconds)
+    }
+  };
+
+  const handleTouchEnd = () => {
+    clearTimeout(longPressTimeout.current);
+    setPopupCardData(null);
+  };
+
+  const handleTouchCancel = () => {
     clearTimeout(longPressTimeout.current);
     setPopupCardData(null);
   };
@@ -73,12 +95,6 @@ const Menu = () => {
     setSearchTerm(e.target.value);
   };
 
-  useEffect(() => {
-    if (!isSmallScreen) {
-      setIsSearchDropdownVisible(false);
-    }
-  }, [isSmallScreen]);
-
   const getSelectedData = (selectedSubmenu) => {
     switch (selectedSubmenu) {
       case 'Starter':
@@ -93,6 +109,13 @@ const Menu = () => {
         return [];
     }
   };
+
+
+  useEffect(() => {
+    if (!isSmallScreen) {
+      setIsSearchDropdownVisible(false);
+    }
+  }, [isSmallScreen]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutsideSearch);
@@ -147,7 +170,7 @@ const Menu = () => {
                 startIcon={<SearchIcon />}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#fff';
-                  e.target.style.color = '#000000';
+                  e.target.style.color = '#000000'; 
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = '#000000';
@@ -200,49 +223,33 @@ const Menu = () => {
 
       <img className="menu-banner" src={Banner} alt='' />
       <div className="menu-content max-w-full">
-        {filteredFoodItems(getSelectedData(selectedSubmenu)).map(
-          (food, index) => (
-            <div
-              key={index}
-              className="food-item-container"
-              onClick={() => handleFoodItemPress(food)}
-              onMouseDown={() => handleFoodItemPress(food)}
-              onMouseUp={handleFoodItemRelease}
-              onTouchStart={() => handleFoodItemPress(food)}
-              onTouchEnd={handleFoodItemRelease}
-              onTouchCancel={handleFoodItemRelease}
-            >
-              {popupCardData === food && (
-                <PopupCard data={popupCardData} onClose={handleClosePopup} />
-              )}
-              <
-                FoodItem image={food.image} />
-            </div>
-          )
+        {filteredFoodItems(getSelectedData(selectedSubmenu))}
+      </div>
+    </div>
+  );
+};
+
+const PopupCard = ({ data, onClose, isLargeScreen }) => {
+  return (
+    <div className="popup-card">
+      <div className='card-image-container'>
+        <img
+          src={data.image}
+          alt={data.name}
+          style={{ width:'auto', height:'auto', objectFit:'cover' }}
+        />
+      </div>
+      <div className="popup-content">
+        <h2>{data.name}</h2>
+        <p>Price: {data.price}</p>
+        <p>{data.description}</p>
+        {isLargeScreen && ( // Render close button only if the screen is large
+          <button className="close-popup" onClick={onClose}>X</button>
         )}
       </div>
     </div>
   );
 };
 
-const PopupCard = ({ data, onClose }) => {
-  return (
-    <div className="popup-card">
-      {/* <button className="close-popup" onClick={onClose}>X</button> */}
-      <div className='card-image-container'>
-        <img
-          src={data.image}
-          alt={data.name}
-          style={{ width: 'auto', height: 'auto', objectFit: 'cover' }}
-        />
-      </div>
-      <div className="popup-content">
-        <h2>{data.name}</h2>
-        <p>Price: {data.price}</p>
-        <p> {data.description}</p>
-      </div>
-    </div>
-  );
-};
-
 export default Menu;
+
