@@ -114,7 +114,6 @@
   max-width: 100%;
   width: 100%; /* Adjust width to fill the container */
   height: auto;
-  max-height: 200px;
   padding: 0px 0px 10px 0px;
 }
 
@@ -134,14 +133,13 @@
 /* Media Query for 450px */
 @media (max-width: 450px) {
   .menu-content {
-    /* padding-top: 50px; */
+    padding-top: 120px; /* Add padding to the top to ensure the first row is fully visible */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #888 #f4f4f4;
-    flex-grow: 1;
     align-content: center;
     align-items: center;
   }
@@ -159,6 +157,7 @@
     padding: 6px 10px; /* Further decrease padding for even smaller screens */
   }
 }
+
 
 @media (max-width: 500px) {
   
