@@ -52,7 +52,7 @@
 .menu-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   overflow-y: auto;
@@ -117,32 +117,17 @@
   padding: 0px 0px 10px 0px;
 }
 
-
-/* Media Query for 768px */
-@media (max-width: 768px) {
-
-  .company-name {
-    font-size: 30px; /* Adjust font size for smaller screens */
-  }
-
-  .search-bar input {
-    width: 150px; /* Adjust width for smaller screens */
-  }
+.banner-container {
+  margin-top: 20px; /* Add margin to separate banner from menu content */
 }
 
 /* Media Query for 450px */
 @media (max-width: 450px) {
-  .menu-content {
-    padding-top: 120px; /* Add padding to the top to ensure the first row is fully visible */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f4f4f4;
-    align-content: center;
-    align-items: center;
-  }
+  /* .menu-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    column-gap: 0px;
+  } */
 
   .company-name {
     font-size: 20px; /* Adjust font size for even smaller screens */
@@ -158,10 +143,7 @@
   }
 }
 
-
 @media (max-width: 500px) {
-  
-
   .popup-card {
     padding: 20px;
     height: 500px;
@@ -170,7 +152,6 @@
     transform: translate(-50%, -50%);
     border-radius: 10px;
   }
-
 
   .search-bar {
     position: relative;

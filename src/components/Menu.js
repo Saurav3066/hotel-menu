@@ -220,8 +220,9 @@ const Menu = () => {
         onBeverageClick={() => handleSubmenuClick('Beverage')}
         onDessertClick={() => handleSubmenuClick('Dessert')}
       />
-
-      <img className="menu-banner" src={Banner} alt='' />
+            <div className="banner-container">
+        <img className="menu-banner" src={Banner} alt='' />
+      </div>
       <div className="menu-content max-w-full">
         {filteredFoodItems(getSelectedData(selectedSubmenu))}
       </div>
@@ -248,7 +249,7 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
         <h2>{data.name}</h2>
         <p>Price: {data.price}</p>
         <p>{data.description}</p>
-        {isLargeScreen && ( // Render close button only if the screen is large
+        {isLargeScreen && ( 
           <button className="close-popup" onClick={handleClose}>X</button>
         )}
       </div>
@@ -258,4 +259,3 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
 
 
 export default Menu;
-

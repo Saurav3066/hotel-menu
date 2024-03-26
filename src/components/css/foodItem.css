@@ -24,9 +24,9 @@
   
   /* Responsive Styles */
   @media screen and (max-width: 768px) {
-    .food-item-container {
+    /* .food-item-container {
       justify-content: center;
-    }
+    } */
   
     .food-item-image {
       width: 150px;
