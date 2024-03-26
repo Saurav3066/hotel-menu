@@ -123,11 +123,9 @@
 
 /* Media Query for 450px */
 @media (max-width: 450px) {
-  /* .menu-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    column-gap: 0px;
-  } */
+  .menu-content {
+    padding-bottom: 10px;
+  }
 
   .company-name {
     font-size: 20px; /* Adjust font size for even smaller screens */
