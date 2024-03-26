@@ -233,23 +233,27 @@ const Menu = () => {
 const PopupCard = ({ data, onClose, isLargeScreen }) => {
   const handleClose = (e) => {
     e.stopPropagation();
-    onClose(); 
+    onClose();
   };
 
   return (
     <div className="popup-card">
+      <div className="popup-header">
+        <div className="name-price-container">
+          <h2>{data.name}</h2>
+          <p>Price: {data.price}</p>
+        </div>
+      </div>
       <div className='card-image-container'>
         <img
           src={data.image}
           alt={data.name}
-          style={{ width:'auto', height:'auto', objectFit:'cover' }}
+          className="card-image"
         />
       </div>
       <div className="popup-content">
-        <h2>{data.name}</h2>
-        <p>Price: {data.price}</p>
         <p>{data.description}</p>
-        {isLargeScreen && ( 
+        {isLargeScreen && (
           <button className="close-popup" onClick={handleClose}>X</button>
         )}
       </div>
