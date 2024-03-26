@@ -230,6 +230,11 @@ const Menu = () => {
 };
 
 const PopupCard = ({ data, onClose, isLargeScreen }) => {
+  const handleClose = (e) => {
+    e.stopPropagation();
+    onClose(); 
+  };
+
   return (
     <div className="popup-card">
       <div className='card-image-container'>
@@ -244,12 +249,13 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
         <p>Price: {data.price}</p>
         <p>{data.description}</p>
         {isLargeScreen && ( // Render close button only if the screen is large
-          <button className="close-popup" onClick={onClose}>X</button>
+          <button className="close-popup" onClick={handleClose}>X</button>
         )}
       </div>
     </div>
   );
 };
+
 
 export default Menu;
 
