@@ -80,12 +80,13 @@
 
 .popup-card {
   position: fixed;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 100%;
   width: 600px;
-  background: white;
+  background: rgb(0, 0, 0);
+  color: #ffffff;
   padding: 10px 0px;
   border: 1px solid #ccc;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
@@ -161,7 +162,7 @@
 
 @media (max-width: 620px) {
 .popup-card {
-  padding: 20px;
+  padding: 20px 0px;
   width:80%;
   top: 60%;
   left: 50%;
@@ -172,7 +173,7 @@
 
 @media (max-width: 500px) {
   .popup-card {
-    padding: 20px;
+    /* padding: 20px; */
     height: 420px;
     top: 60%;
     left: 50%;
