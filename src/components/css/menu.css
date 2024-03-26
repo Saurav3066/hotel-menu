@@ -80,13 +80,13 @@
 
 .popup-card {
   position: fixed;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 80%;
-  width: 800px;
+  max-width: 100%;
+  width: 600px;
   background: white;
-  padding: 20px 0px;
+  padding: 10px 0px;
   border: 1px solid #ccc;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 100;
@@ -97,14 +97,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  padding: 10px 20px;
   border-bottom: 1px solid #ccc;
-}
-
-.name-price-container {
-  display: flex;
-  align-items: center;
-  gap: 100px;
 }
 
 .card-image-container {
@@ -119,7 +113,7 @@
 }
 
 .popup-content {
-  margin-top: 10px;
+  padding: 10px 20px;
 }
 
 .close-popup {
@@ -165,10 +159,21 @@
   }
 }
 
+@media (max-width: 620px) {
+.popup-card {
+  padding: 20px;
+  width:80%;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  }
+}
+
 @media (max-width: 500px) {
   .popup-card {
     padding: 20px;
-    height: 500px;
+    height: 420px;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);

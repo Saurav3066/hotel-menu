@@ -238,18 +238,16 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
 
   return (
     <div className="popup-card">
-      <div className="popup-header">
-        <div className="name-price-container">
-          <h2>{data.name}</h2>
-          <p>Price: {data.price}</p>
-        </div>
-      </div>
       <div className='card-image-container'>
         <img
           src={data.image}
           alt={data.name}
           className="card-image"
         />
+      </div>
+      <div className="popup-header">
+          <h2>{data.name}</h2>
+          <p>Price: {data.price}</p>
       </div>
       <div className="popup-content">
         <p>{data.description}</p>
