@@ -7,7 +7,7 @@ import beverageData from './data/beverageData.js';
 import dessertData from './data/dessertData.js';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import useMediaQuery from '@mui/material/useMediaQuery';
+// import useMediaQuery from '@mui/material/useMediaQuery';
 import './css/menu.css';
 import Logo from './images/logo.png';
 import Banner from './images/foodyes.png';
@@ -18,8 +18,8 @@ const Menu = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchDropdownVisible, setIsSearchDropdownVisible] = useState(false);
   const [isCompanyNameVisible, setIsCompanyNameVisible] = useState(true);
-  const isSmallScreen = useMediaQuery('(max-width:768px)'); // Change the max-width to 768px
-  const isLargeScreen = useMediaQuery('(min-width:769px)'); // Check if the screen width is larger than 768px
+  const [isGrid, setIsGrid] = useState(true); 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const searchRef = useRef(null);
   const longPressTimeout = useRef(null);
 
@@ -29,30 +29,40 @@ const Menu = () => {
 
   const handleSearchButtonClick = () => {
     setIsSearchDropdownVisible(true);
-    setIsCompanyNameVisible(false); 
+    setIsCompanyNameVisible(false);
   };
 
   const handleClickOutsideSearch = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setIsSearchDropdownVisible(false); 
+      setIsSearchDropdownVisible(false);
       setIsCompanyNameVisible(true);
     }
+  };
+
+  const toggleView = () => {
+    setIsGrid(!isGrid);
   };
 
   const filteredFoodItems = (data) => {
     return data.map((food, index) => (
       <div
         key={index}
-        className="food-item-container"
+        className={`food-item-container ${isGrid ? 'grid-view' : 'list-view'}`} 
         onClick={() => handleFoodItemClick(food)}
         onTouchStart={() => handleTouchStart(food)}
         onTouchEnd={() => handleTouchEnd(food)}
         onTouchCancel={() => handleTouchCancel(food)}
       >
         {popupCardData === food && (
-          <PopupCard data={popupCardData} onClose={handleClosePopup} isLargeScreen={isLargeScreen} />
+          <PopupCard data={popupCardData} onClose={handleClosePopup} isLargeScreen={!isSmallScreen} />
         )}
-        <FoodItem image={food.image} />
+        <FoodItem image={food.image}/>
+        {!isGrid && (
+          <div className="food-details">
+            <p className="food-name">{food.name}</p>
+            <p className="food-price">Price: {food.price}</p>
+          </div>
+        )}
       </div>
     ));
   };
@@ -61,7 +71,7 @@ const Menu = () => {
     if (!isSmallScreen) {
       longPressTimeout.current = setTimeout(() => {
         setPopupCardData(food);
-      }, 500); // Set the long press duration (milliseconds)
+      }, 500);
     }
   };
 
@@ -69,7 +79,7 @@ const Menu = () => {
     if (isSmallScreen) {
       longPressTimeout.current = setTimeout(() => {
         setPopupCardData(food);
-      }, 500); // Set the long press duration (milliseconds)
+      }, 500); 
     }
   };
 
@@ -110,6 +120,29 @@ const Menu = () => {
     }
   };
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+
+    
+    checkScreenSize();
+
+    
+    window.addEventListener('resize', checkScreenSize);
+
+   
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
+  
+  useEffect(() => {
+    if (!isSmallScreen) {
+      setIsGrid(true);
+    }
+  }, [isSmallScreen]);
 
   useEffect(() => {
     if (!isSmallScreen) {
@@ -170,7 +203,7 @@ const Menu = () => {
                 startIcon={<SearchIcon />}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#fff';
-                  e.target.style.color = '#000000'; 
+                  e.target.style.color = '#000000';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = '#000000';
@@ -220,8 +253,13 @@ const Menu = () => {
         onBeverageClick={() => handleSubmenuClick('Beverage')}
         onDessertClick={() => handleSubmenuClick('Dessert')}
       />
-            <div className="banner-container">
+      <div className="banner-container">
         <img className="menu-banner" src={Banner} alt='' />
+        {isSmallScreen && (
+          <button className="toggle-button" onClick={toggleView}>
+            {isGrid ? 'List View' : 'Grid View'}
+          </button>
+        )}
       </div>
       <div className="menu-content max-w-full">
         {filteredFoodItems(getSelectedData(selectedSubmenu))}
@@ -246,8 +284,8 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
         />
       </div>
       <div className="popup-header">
-          <h2>{data.name}</h2>
-          <p>Price: {data.price}</p>
+        <h2>{data.name}</h2>
+        <p>Price: {data.price}</p>
       </div>
       <div className="popup-content">
         <p>{data.description}</p>
@@ -258,6 +296,5 @@ const PopupCard = ({ data, onClose, isLargeScreen }) => {
     </div>
   );
 };
-
 
 export default Menu;
