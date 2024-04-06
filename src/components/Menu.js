@@ -259,7 +259,7 @@ const Menu = () => {
       <div className="banner-container">
         <img className="menu-banner" src={Banner} alt='' />
         {isSmallScreen && (
-          <button className="toggle-button" onClick={toggleView} style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', padding:'0px 0px'}}>
+          <button className="toggle-button" onClick={toggleView} style={{ marginLeft: 'auto', marginRight: '5px', display: 'flex', alignItems: 'center', padding:'0px 0px'}}>
             {isGrid ? <ListAltOutlined /> : <GridOnOutlined />}
             <span style={{ marginLeft: '0px' }}>{isGrid ? '' : ''}</span>
           </button>
