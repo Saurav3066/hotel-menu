@@ -7,6 +7,7 @@ import beverageData from './data/beverageData.js';
 import dessertData from './data/dessertData.js';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import { GridOnOutlined, ListAltOutlined } from '@mui/icons-material';
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import './css/menu.css';
 import Logo from './images/logo.png';
@@ -256,8 +257,9 @@ const Menu = () => {
       <div className="banner-container">
         <img className="menu-banner" src={Banner} alt='' />
         {isSmallScreen && (
-          <button className="toggle-button" onClick={toggleView}>
-            {isGrid ? 'List View' : 'Grid View'}
+          <button className="toggle-button" onClick={toggleView} style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', padding:'0px 0px'}}>
+            {isGrid ? <ListAltOutlined /> : <GridOnOutlined />}
+            <span style={{ marginLeft: '0px' }}>{isGrid ? '' : ''}</span>
           </button>
         )}
       </div>
