@@ -60,7 +60,7 @@ const Menu = () => {
         <FoodItem image={food.image}/>
         {!isGrid && (
           <div className="food-details"
-              style={{ paddingLeft:'70px'}}
+              style={{ paddingLeft:'30px'}}
           >
             <p className="food-name">{food.name}</p>
             <p className="food-price">Price: {food.price}</p>
