@@ -109,7 +109,7 @@
 .card-image {
   width: 100%; 
   height: auto; 
-  object-fit: cover;
+  /* object-fit: cover; */
   padding: 0px; 
 }
 
